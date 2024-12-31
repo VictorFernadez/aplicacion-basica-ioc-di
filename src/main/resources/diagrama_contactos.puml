@@ -1,0 +1,30 @@
+
+@startuml
+title Flujo de creación de contactos usando IoC y DI en Spring
+
+start
+:Inicia la aplicación (MainApp);
+:Spring crea el ApplicationContext;
+:ApplicationContext carga la configuración de Beans (AppConfig);
+
+if (Bean `ContactoService` está definido?) then (Sí)
+    :Spring crea una instancia de ContactoService;
+    :ContactoService es gestionado por el contenedor IoC;
+else (No)
+    :Error: Bean no encontrado;
+    stop
+endif
+
+:MainApp solicita el Bean `ContactoService` al ApplicationContext;
+:Spring entrega la instancia de ContactoService a MainApp;
+
+:MainApp usa ContactoService para agregar contactos;
+repeat
+  :ContactoService agrega un contacto a la lista interna;
+repeat while (más contactos?)
+
+:MainApp usa ContactoService para obtener la lista de contactos;
+:Imprime los contactos en consola;
+
+stop
+@enduml
